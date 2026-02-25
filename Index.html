@@ -1,128 +1,83 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Mobile Numbers</title>
-
-<style>
-body{
-font-family: Arial, sans-serif;
-margin:0;
-background:#f5f7fb;
-}
-
-header{
-background:#0a66ff;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-nav{
-background:#111;
-padding:10px;
-text-align:center;
-}
-
-nav a{
-color:white;
-margin:10px;
-text-decoration:none;
-font-weight:bold;
-}
-
-section{
-padding:40px;
-}
-
-.card{
-background:white;
-padding:20px;
-margin:20px;
-border-radius:10px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
-
-button{
-background:#0a66ff;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:6px;
-cursor:pointer;
-}
-
-footer{
-background:#111;
-color:white;
-text-align:center;
-padding:20px;
-}
-</style>
+    <title>Package Tracking</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f9;
+            text-align:center;
+            padding:40px;
+        }
+        .box{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 15px rgba(0,0,0,0.1);
+            max-width:400px;
+            margin:auto;
+        }
+        button{
+            padding:10px 20px;
+            border:none;
+            background:#007bff;
+            color:white;
+            border-radius:5px;
+            cursor:pointer;
+            margin-top:15px;
+        }
+        .result{
+            margin-top:20px;
+            font-size:14px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>Premium Mobile Numbers Store</h1>
-<p>Buy Exclusive Phone Numbers Instantly</p>
-</header>
+<div class="box">
+    <h2>Track Your Package</h2>
+    <button onclick="generateTracking()">Generate Tracking</button>
 
-<nav>
-<a href="#numbers">Available Numbers</a>
-<a href="#signup">Sign Up</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<section id="numbers">
-<h2>Available Numbers</h2>
-
-<div class="card">
-<h3>+1 (367) 333-4412</h3>
-<p>Premium easy-to-remember number</p>
-<p>Price: $50</p>
-<button>Buy Now</button>
+    <div class="result" id="result"></div>
 </div>
 
-<div class="card">
-<h3>+1 (555) 880-1122</h3>
-<p>Business class number</p>
-<p>Price: $75</p>
-<button>Buy Now</button>
-</div>
+<script>
+function randomDigits(length){
+    let result = "";
+    let numbers = "0123456789";
+    for(let i=0; i<length; i++){
+        result += numbers[Math.floor(Math.random() * 10)];
+    }
+    return result;
+}
 
-<div class="card">
-<h3>+1 (222) 900-7788</h3>
-<p>VIP number</p>
-<p>Price: $120</p>
-<button>Buy Now</button>
-</div>
+function generateTracking(){
+    let carriers = ["UPS","USPS","FedEx","DHL"];
+    let statuses = ["Label Created","In Transit","Out for Delivery","Delivered"];
 
-</section>
+    let carrier = carriers[Math.floor(Math.random()*carriers.length)];
+    let status = statuses[Math.floor(Math.random()*statuses.length)];
+    let tracking;
 
-<section id="signup">
-<h2>Create Account</h2>
+    if(carrier === "UPS"){
+        tracking = "1Z" + randomDigits(16);
+    }
+    else if(carrier === "USPS"){
+        tracking = randomDigits(22);
+    }
+    else if(carrier === "FedEx"){
+        tracking = randomDigits(12);
+    }
+    else{
+        tracking = randomDigits(10);
+    }
 
-<form>
-<input type="text" placeholder="Full Name" required><br><br>
-<input type="email" placeholder="Email Address" required><br><br>
-<input type="password" placeholder="Password" required><br><br>
-<button type="submit">Sign Up</button>
-</form>
-
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<p>Email: support@mobilenumbershop.com</p>
-<p>WhatsApp: +1 (367) 333-4412</p>
-</section>
-
-<footer>
-<p>© 2026 Premium Mobile Numbers</p>
-</footer>
+    document.getElementById("result").innerHTML =
+        "<b>Carrier:</b> " + carrier + "<br>" +
+        "<b>Tracking Number:</b> " + tracking + "<br>" +
+        "<b>Status:</b> " + status;
+}
+</script>
 
 </body>
 </html>
